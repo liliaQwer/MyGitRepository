@@ -1,1 +1,1 @@
-Spring  app test פûגא
+Spring  app test
