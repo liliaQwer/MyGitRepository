@@ -7,7 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainClass {
 
 	public static void main(String[] args) {
+		System.out.println("Поехали");
 		ApplicationContext cntx=new ClassPathXmlApplicationContext("core.xml");
+		System.out.println("Загрузили контекст");
 		Hero hero1=cntx.getBean("hero1", Hero.class);
 		hero1.action();
 		Hero hero2=cntx.getBean("hero2", Hero.class);
@@ -25,7 +27,7 @@ public class MainClass {
 		for(Nameble n: factory.getList()){
 			System.out.println(n.getName());
 		}
-		
+		cntx.getBean("winner",Winner.class).getHero().action();
 	}
 
 }

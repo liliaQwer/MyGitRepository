@@ -6,6 +6,7 @@ public class Factory {
 		return list;
 	}
 	public void setList(List<Nameble> list) {
+		System.out.println("setList(..)");
 		this.list = list;
 	}
 	public static Nameble createInstance(int type){
