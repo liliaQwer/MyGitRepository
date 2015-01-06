@@ -1,3 +1,4 @@
+package main;
 
 public class Weapon implements Nameble{
 	String name;
