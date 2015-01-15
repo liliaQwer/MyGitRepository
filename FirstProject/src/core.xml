@@ -4,41 +4,44 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-3.0.xsd"
-	>
-<context:annotation-config/>
-	<bean id="hero1" class="Hero" init-method="wakeUp" destroy-method="sleep">
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+	
+<context:component-scan base-package="main"/>
+	<bean id="hero1" class="main.Hero" init-method="wakeUp" destroy-method="sleep">
 		<constructor-arg value="Mario"/>
 		<constructor-arg>
-			<bean class="Weapon">
+			<bean class="main.Weapon">
 				<constructor-arg value="staff"/>
 			</bean>
 		</constructor-arg>
 	</bean>	
-	<bean id="hero2" class="Hero" autowire="constructor" >
+	<bean id="hero2" class="main.Hero" autowire="constructor" >
 		<constructor-arg value="Legolas"/>	
 	</bean>	
-	<bean id="hero21" class="Hero" autowire="byType">
+	<bean id="hero21" class="main.Hero" autowire="byType">
 		<constructor-arg value="Legolas21"/>				
 	</bean>	
-	<bean id="hero22" class="Hero" autowire="byType">
+	<bean id="hero22" class="main.Hero" autowire="byType">
 		<constructor-arg value="Legolas22"/>						
 	</bean>	
-	<bean id="hero3" class="Hero">
+	<bean id="hero3" class="main.Hero">
 		<property name="name" value="Karlo"/>
 	</bean>
-	<bean id="weapon" class="Weapon" scope="prototype" autowire-candidate="false">
+	<bean id="weapon" class="main.Weapon" scope="prototype" autowire-candidate="false">
 		<constructor-arg value="shield"/>
 	</bean>
-	<bean id="weapon1" class="Weapon" primary="true">
+	<bean id="weapon1" class="main.Weapon" primary="true">
 		<constructor-arg value="sword"/>
 	</bean>
-	<bean id="testInstance" class="Factory" factory-method="createInstance">
+	<bean id="testInstance" class="main.Factory" factory-method="createInstance">
 		<constructor-arg value="1"/>
 	</bean>
-	<bean id="listTest" class="Factory">
+	<bean id="listTest" class="main.Factory">
 	<property  name="list">
 		<list>
 			<ref bean="hero1"/>
@@ -46,12 +49,21 @@
 			
 		</list>
 	</property>
-	</bean>
-	<bean id="winner" class="Winner"/>
+	</bean>	
 	<util:list id="testList">
 	<value>One</value>
 	<value>One</value>
 	<value>One</value>	
 	</util:list>
 
+	<bean id="myAspect" class="main.MyAspect"/>
+	<aop:config>
+		<aop:aspect ref="myAspect">
+			<aop:pointcut expression="execution(* main.Hero.action(..))" id="myPoint"/>
+			<aop:before method="before" pointcut-ref="myPoint"/>
+			<aop:after method="after" pointcut-ref="myPoint"/>
+			<aop:around method="around" pointcut-ref="myPoint"/>
+		</aop:aspect> 
+	</aop:config>
+	
 </beans>

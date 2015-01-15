@@ -1,8 +1,12 @@
 package main;
+import java.io.Serializable;
+
 import org.springframework.beans.factory.BeanNameAware;
 
 
-public class Hero implements Nameble,BeanNameAware{
+public class Hero implements Nameble,BeanNameAware,Serializable{
+	
+	private static final long serialVersionUID = -5264610540886402162L;
 	String name;
 	String beanName;
 	

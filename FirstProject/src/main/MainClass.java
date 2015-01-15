@@ -29,6 +29,7 @@ public class MainClass {
 			System.out.println(n.getName());
 		}
 		cntx.getBean("winner",Winner.class).getHero().action();
+		
 	}
 
 }

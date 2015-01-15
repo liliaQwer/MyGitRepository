@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="spring-beans-3.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="spring-core-3.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="spring-expression-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="aspectjrt-1.6.6.jar"/>
+	<classpathentry kind="lib" path="aspectjweaver-1.6.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
