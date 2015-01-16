@@ -11,9 +11,9 @@ public class Winner {
 	
 	@Autowired
 	@Qualifier("hero1")
-	private Hero hero;
+	private ActionAware hero;
 
-	public Hero getHero() {
+	public ActionAware getHero() {
 		return hero;
 	}
 }

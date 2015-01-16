@@ -4,7 +4,7 @@ import java.io.Serializable;
 import org.springframework.beans.factory.BeanNameAware;
 
 
-public class Hero implements Nameble,BeanNameAware,Serializable{
+public class Hero implements Nameble,BeanNameAware,Serializable,ActionAware{
 	
 	private static final long serialVersionUID = -5264610540886402162L;
 	String name;
@@ -30,6 +30,7 @@ public class Hero implements Nameble,BeanNameAware,Serializable{
 		this.name=name;
 		this.weapon=weapon;
 	}
+	
 	public void action (){
 		System.out.println("My name is " + name);
 		if(weapon!=null){
@@ -59,5 +60,10 @@ public class Hero implements Nameble,BeanNameAware,Serializable{
 	public void setBeanName(String arg0) {
 		System.out.println("setBeanName "+arg0);
 		beanName=arg0;
+	}
+
+	@Override
+	public void actionWithArg(String thoughts) {
+		System.out.println("Мои мысли: "+thoughts);
 	}
 }

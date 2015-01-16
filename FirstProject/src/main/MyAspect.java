@@ -3,10 +3,13 @@ package main;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 public class MyAspect {
-	public void before(){
-		System.out.println("Advice executes before method");
+	public void before(String thoughts){		
+		System.out.println("Advice executes before method with thoughts "+thoughts);		
 	}
-	
+	/*public void before(){		
+		System.out.println("Advice executes before method with thoughts ");		
+	}
+	*/
 	public void after(){
 		System.out.println("Advice execute after method");
 	}

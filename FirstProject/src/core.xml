@@ -59,10 +59,11 @@
 	<bean id="myAspect" class="main.MyAspect"/>
 	<aop:config>
 		<aop:aspect ref="myAspect">
-			<aop:pointcut expression="execution(* main.Hero.action(..))" id="myPoint"/>
-			<aop:before method="before" pointcut-ref="myPoint"/>
-			<aop:after method="after" pointcut-ref="myPoint"/>
-			<aop:around method="around" pointcut-ref="myPoint"/>
+			<aop:pointcut expression="execution(* main.ActionAware.actionWithArg(String)) and args(th)" id="myPoint"/> 
+			<!--  <aop:pointcut expression="execution(* main.Hero.actionWithArg(String))" id="myPoint"/>-->
+			<aop:before method="before" pointcut-ref="myPoint" arg-names="th"/>
+			<!--  <aop:after method="after" pointcut-ref="myPoint"/> -->
+			<!--<aop:around method="around" pointcut-ref="myPoint"/>  -->
 		</aop:aspect> 
 	</aop:config>
 	
