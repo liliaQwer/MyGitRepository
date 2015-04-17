@@ -1,0 +1,30 @@
+body{
+	
+}
+.width850{
+	width: 850px;
+}
+.width600{
+	width: 600px;
+}
+.tableDiv{
+	margin: 0 auto;
+	border: groove 1px;
+}
+.imageDiv{
+	margin: 0 auto;
+}
+thead {
+	background-color: #E9EFF9;
+	font-size: 18px;
+	
+}
+#loginDiv{
+	padding-top: 20px;
+}
+.marginAuto{
+	margin: 0 auto;
+}
+.paddingTop20{
+	padding-top: 20px;
+}
