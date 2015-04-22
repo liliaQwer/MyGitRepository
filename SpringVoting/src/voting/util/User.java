@@ -1,22 +1,23 @@
 package voting.util;
 
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
-	@Size(min=3, max=20)
+	@Size(min=3, max=30)
+	@Email
+	@NotEmpty
 	private String email;
 	
 	@Size(min=3, max=20)
+	@NotEmpty
 	private String password;
 	
-	@Size(min=3, max=20)
+	@Size(min=6, max=10)
 	private String birthDate;
 	
 	private int role;
-	
-	public User (){
-		
-	}
 	
 	public String getEmail() {
 		return email;

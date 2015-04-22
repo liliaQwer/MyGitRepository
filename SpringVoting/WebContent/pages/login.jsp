@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,6 +29,10 @@ $(function() {
 	});
 		
 });
+
+function clearErrors(){
+	$(".errors").hide();
+}
 </script>
 </head>
 <body>
@@ -38,18 +43,20 @@ $(function() {
 		</ul>
 		<div  class="tab-content paddingTop20">
 			<div  role="tabpanel" class="tab-pane active" id="tabLogin">
-				<form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="signIn" role="form" method="post">
+				<form:form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="signIn" role="form" method="post" commandName="user">
   					<div class="form-group">
     					<label for="inputEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<input type="email" name="email"  data-error="My data error for email" class="form-control" id="inputEmail" placeholder="Email" required>
+     						<form:input type="email" path="email"  class="form-control" id="inputEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
+   							<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
  					</div>
   					<div class="form-group">
     					<label for="inputPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>   
+      						<form:input type="password" path="password" class="form-control" id="inputPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
+      						<form:errors path="password" class="errors"/>  
       						<div class="help-block with-errors"></div>   						
     					</div>    					
   					</div>
@@ -58,28 +65,31 @@ $(function() {
       						<button type="submit" class="btn btn-default">Sign in</button>
     					</div>
   					</div>
-				</form>
+				</form:form>
 			</div>
 			<div  role="tabpanel" class="tab-pane" id="tabRegister">
-				<form class="form-horizontal width600" id="registerForm" data-toggle="validator" action="signUp" method="post">
+				<form:form class="form-horizontal width600" id="registerForm" data-toggle="validator" action="signUp" method="post" commandName="user">
   					<div class="form-group">
     					<label for="inputEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" required>
+     						<form:input type="email" path="email" class="form-control" id="inputEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
+     						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
  					</div>
   					<div class="form-group">
     					<label for="inputPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+      						<form:input type="password" path="password" class="form-control" id="inputPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
+      						<form:errors path="password" class="errors"/>
       						<div class="help-block with-errors"></div>
     					</div>
   					</div>
   					<div class="form-group">
     					<label for="inputBirthDate" class="col-sm-2 control-label">BirthDate</label>
     					<div class="col-sm-10">
-      						<input type="datetime" name="birthDate" class="form-control" id="inputBirthDate" placeholder="MM/DD/YYYY" required>
+      						<form:input type="datetime" path="birthDate" class="form-control" id="inputBirthDate" placeholder="MM/DD/YYYY" required="true" onclick="clearErrors();"></form:input>
+      						<form:errors path="birthDate" class="errors"/>
       						<div class="help-block with-errors"></div>
     					</div>
   					</div>
@@ -88,7 +98,7 @@ $(function() {
       						<button type="submit" class="btn btn-default">Sign up</button>
     					</div>
   					</div>
-				</form>
+				</form:form>
 			</div>
 		</div>	
 	</div>

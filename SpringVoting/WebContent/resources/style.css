@@ -28,3 +28,6 @@ thead {
 .paddingTop20{
 	padding-top: 20px;
 }
+.errors{
+	color: #a94442;
+}

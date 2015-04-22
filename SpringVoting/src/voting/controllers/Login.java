@@ -14,11 +14,20 @@ import voting.util.User;
 @Controller
 public class Login {
 	
+	@RequestMapping(value="/sign")
+	public String sign(Map<String,Object> map){
+		map.put("user", new User());
+		return "login";
+	}
+	
 	@RequestMapping(value="/signIn", method = POST)
-	public String signIn(String email, String password, Map<String,Object> map){
-		System.out.println("email="+email);
-		//return "viewCreatedVotings";
-		return "initialPage";
+	public String signIn(@Valid User user, BindingResult result, Map<String,Object> map){
+		if (result.hasErrors()) {
+			return "login";
+		} else {
+			map.put("user",user);
+			return "initialPage";
+		}	
 	}
 
 	@RequestMapping(value="/signUp", method = POST)

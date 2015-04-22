@@ -27,7 +27,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div><span>Войти</span></div>
+<div><a href="sign">Вход/регистрация</a></div>
 <div class="tableDiv width850">
 <table class="table table-hover" align="center">
 	<thead>

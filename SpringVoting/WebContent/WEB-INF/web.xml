@@ -9,8 +9,9 @@
   <servlet-mapping>
   	<servlet-name>voting</servlet-name> 
   	<url-pattern>/</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping> 
+  
   <welcome-file-list>
-    <welcome-file>/pages/login.jsp</welcome-file>
+    <welcome-file>/pages/initialPage.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
