@@ -45,17 +45,17 @@ function clearErrors(){
 			<div  role="tabpanel" class="tab-pane active" id="tabLogin">
 				<form:form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="signIn" role="form" method="post" commandName="user">
   					<div class="form-group">
-    					<label for="inputEmail" class="col-sm-2 control-label">Email</label>
+    					<label for="signInEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input type="email" path="email"  class="form-control" id="inputEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
+     						<form:input type="email" path="email"  class="form-control" id="signInEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
    							<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
  					</div>
   					<div class="form-group">
-    					<label for="inputPassword" class="col-sm-2 control-label">Password</label>
+    					<label for="signInPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<form:input type="password" path="password" class="form-control" id="inputPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
+      						<form:input type="password" path="password" class="form-control" id="signInPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
       						<form:errors path="password" class="errors"/>  
       						<div class="help-block with-errors"></div>   						
     					</div>    					
@@ -70,25 +70,25 @@ function clearErrors(){
 			<div  role="tabpanel" class="tab-pane" id="tabRegister">
 				<form:form class="form-horizontal width600" id="registerForm" data-toggle="validator" action="signUp" method="post" commandName="user">
   					<div class="form-group">
-    					<label for="inputEmail" class="col-sm-2 control-label">Email</label>
+    					<label for="signUpEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input type="email" path="email" class="form-control" id="inputEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
+     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="not unique email" onclick="clearErrors();"></form:input>
      						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
  					</div>
   					<div class="form-group">
-    					<label for="inputPassword" class="col-sm-2 control-label">Password</label>
+    					<label for="signUpPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<form:input type="password" path="password" class="form-control" id="inputPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
+      						<form:input type="password" path="password" class="form-control" id="signUpPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
       						<form:errors path="password" class="errors"/>
       						<div class="help-block with-errors"></div>
     					</div>
   					</div>
   					<div class="form-group">
-    					<label for="inputBirthDate" class="col-sm-2 control-label">BirthDate</label>
+    					<label for="signUpBirthDate" class="col-sm-2 control-label">BirthDate</label>
     					<div class="col-sm-10">
-      						<form:input type="datetime" path="birthDate" class="form-control" id="inputBirthDate" placeholder="MM/DD/YYYY" required="true" onclick="clearErrors();"></form:input>
+      						<form:input type="datetime" path="birthDate" class="form-control" id="signUpBirthDate" placeholder="MM/DD/YYYY" required="true" onclick="clearErrors();"></form:input>
       						<form:errors path="birthDate" class="errors"/>
       						<div class="help-block with-errors"></div>
     					</div>

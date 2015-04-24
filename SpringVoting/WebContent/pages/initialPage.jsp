@@ -13,6 +13,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap.min.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery.jqpagination.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/knockout.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.pagination').jqPagination({
@@ -23,11 +24,39 @@ $(document).ready(function(){
   	 	    // do something with the page variable
    	 }
 	});
+	
+	function record(or,th,vt,au){
+		this.orderNum= or;
+		this.theme= th;
+		this.voteCount= vt;
+		this.author= au;
+	}
+	var rec1 = new record(1,"Запись 1", 2, "Li");
+	var rec2 = new record(2,"Запись 2", 3, "Li");
+	var someData=[rec1,rec2];
+	
+	function tableViewModel(data){
+		var self = this;
+		
+		self.viewData = ko.observableArray(data);
+		self.totalVoteCount = ko.computed(function(){
+			return self.viewData().length;
+		});
+		//self.viewData = ko.observableArray([{orderNum : 1, theme: "Запись 1", voteCount: 1, author: "Я"},{orderNum : 2, theme: "Запись 2", voteCount: 5, author: "ЯЯ"}]);
+		//self.orderNum = ko.observable();
+		//self.theme = ko.observable();
+		//self.voteCount = ko.observable();
+		//self.author = ko.observable();
+	}
+	
+	var view = new tableViewModel(someData);
+	ko.applyBindings(view);
 });
 </script>
 </head>
 <body>
 <div><a href="sign">Вход/регистрация</a></div>
+<p align="center">Всего активных голосований: <span data-bind = "text: totalVoteCount"></span></p>
 <div class="tableDiv width850">
 <table class="table table-hover" align="center">
 	<thead>
@@ -38,19 +67,13 @@ $(document).ready(function(){
 			<td>Автор</td>
 		</tr>
 	</thead>
- 	<tbody>
+ 	<tbody data-bind = "foreach: viewData">
  		<tr>
-			<td>1</td>
-			<td>Тема дня</td>
-			<td>10</td>
-			<td>Автор я</td>
-		</tr>
-		<tr>
-			<td>2</td>
-			<td>Тема вечера</td>
-			<td>100</td>
-			<td>Автор я</td>
-		</tr>
+			<td data-bind = "text: orderNum">1</td>
+			<td data-bind = "text: theme">Тема дня</td>
+			<td data-bind = "text: voteCount">10</td>
+			<td data-bind = "text: author">Автор я</td>
+		</tr>		
  	</tbody>
 </table>
 </div>
