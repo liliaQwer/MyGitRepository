@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import voting.util.User;
 
@@ -23,6 +25,13 @@ public class Login {
 		System.out.println("Get");
 		map.put("user", new User());
 		return "login";
+	}
+	
+	@RequestMapping(value="/test", method  = GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public User  test(){
+		System.out.println("test");
+		return new User();
 	}
 	
 	/*@RequestMapping(value="/checkUniqueEmail")
