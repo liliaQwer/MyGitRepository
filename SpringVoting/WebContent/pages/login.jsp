@@ -72,7 +72,7 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="not unique email" onclick="clearErrors();"></form:input>
+     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail"  onclick="clearErrors();"></form:input>
      						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
