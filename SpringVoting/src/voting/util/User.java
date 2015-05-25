@@ -1,23 +1,25 @@
 package voting.util;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
-	@Size(min=3, max=30)
+	@Size(min=3, max=15)
 	@Email
 	@NotEmpty
 	private String email;
 	
-	@Size(min=3, max=20)
+	@Size(min=3, max=10)
 	@NotEmpty
 	private String password;
 	
 	@Size(min=6, max=10)
 	private String birthDate;
 	
-	private int role;
+	private ArrayList<Roles> roles;
 	
 	public String getEmail() {
 		return email;
@@ -36,12 +38,6 @@ public class User {
 	}
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
-	}
-	public int getRole() {
-		return role;
-	}
-	public void setRole(int role) {
-		this.role = role;
 	}
 	
 	String name="Ivan";
@@ -65,5 +61,11 @@ public class User {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+	public ArrayList<Roles> getRoles() {
+		return roles;
+	}
+	public void setRoles(ArrayList<Roles> roles) {
+		this.roles = roles;
 	}
 }

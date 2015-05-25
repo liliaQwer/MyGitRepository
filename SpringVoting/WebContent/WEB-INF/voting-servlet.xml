@@ -8,6 +8,8 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="voting.controllers"/>
+	<context:component-scan base-package="voting.dao"/>
+	<context:component-scan base-package="voting.util"/>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/pages/"/>

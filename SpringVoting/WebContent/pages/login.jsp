@@ -27,7 +27,22 @@ $(function() {
 		delay:100,
 		disable:true		
 	});
-		
+	
+	var error="${error}";
+	if (error!=null && error!=""){
+		alert("error="+"${error}");
+		$("#actionError").removeClass("hidden");
+	}
+	
+	if ("${tab}"=="registration"){
+		alert("tab= registration "+"${tab}");
+		$("#tabRegister").addClass("active");
+		$("#liRegister").addClass("active");
+	}else{
+		alert("tab= login "+"${tab}");
+		$("#tabLogin").addClass("active");
+		$("#liLogin").addClass("active");
+	}
 });
 
 function clearErrors(){
@@ -38,12 +53,12 @@ function clearErrors(){
 <body>
  	<div id="signDiv" class="width600 marginAuto paddingTop20" role="tabpanel" >
 		<ul class="nav nav-tabs" role="tablist">
-  			<li role="presentation" class="active"><a href="#tabLogin"  aria-controls="tabLogin" role="tab" data-toggle="tab">Login</a></li>
- 			<li role="presentation"><a href="#tabRegister" aria-controls="tabRegister" role="tab" data-toggle="tab">Register</a></li> 		
+  			<li role="presentation" id="liLogin"><a href="#tabLogin"  aria-controls="tabLogin" role="tab" data-toggle="tab">Login</a></li>
+ 			<li role="presentation" id="liRegister"><a href="#tabRegister" aria-controls="tabRegister" role="tab" data-toggle="tab">Register</a></li> 		
 		</ul>
 		<div  class="tab-content paddingTop20">
-			<div  role="tabpanel" class="tab-pane active" id="tabLogin">
-				<form:form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="signIn" role="form" method="post" commandName="user">
+			<div  role="tabpanel" class="tab-pane" id="tabLogin">
+				<form:form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="signIn" role="form" method="post" commandName="signInUser">
   					<div class="form-group">
     					<label for="signInEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
@@ -68,11 +83,11 @@ function clearErrors(){
 				</form:form>
 			</div>
 			<div  role="tabpanel" class="tab-pane" id="tabRegister">
-				<form:form class="form-horizontal width600" id="registerForm" data-toggle="validator" action="signUp" method="post" commandName="user">
+				<form:form class="form-horizontal width600" id="registerForm" data-toggle="validator" action="signUp" method="post" commandName="signUpUser">
   					<div class="form-group">
     					<label for="signUpEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="not unique email"  onclick="clearErrors();"></form:input>
+     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
      						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
@@ -86,21 +101,34 @@ function clearErrors(){
     					</div>
   					</div>
   					<div class="form-group">
+    					<label for="signUpPasswordConfirm" class="col-sm-2 control-label">Confirm password</label>
+    					<div class="col-sm-10">
+      						<form:input type="password" path="passwordConfirm" class="form-control" id="signUpPasswordConfirm" data-match="#signUpPassword" data-match-error="Whoops, these don't match" placeholder="PasswordConfirm" required="true" onclick="clearErrors();"></form:input>
+      						<form:errors path="passwordConfirm" class="errors"/>
+      						<form:errors path="samePasswords" class="errors"/>
+      						<div class="help-block with-errors"></div>
+    					</div>
+  					</div>  					
+  					<div class="form-group">
     					<label for="signUpBirthDate" class="col-sm-2 control-label">BirthDate</label>
     					<div class="col-sm-10">
       						<form:input type="datetime" path="birthDate" class="form-control" id="signUpBirthDate" placeholder="MM/DD/YYYY" required="true" onclick="clearErrors();"></form:input>
       						<form:errors path="birthDate" class="errors"/>
       						<div class="help-block with-errors"></div>
     					</div>
-  					</div>
+  					</div> 					
   					<div class="form-group">
     					<div class="col-sm-offset-2 col-sm-10">
       						<button type="submit" class="btn btn-default">Sign up</button>
     					</div>
-  					</div>
-				</form:form>
+  					</div>  					
+				</form:form>				
 			</div>
 		</div>	
+		<div id="actionError" class="alert alert-danger alert-dismissible hidden" role="alert">
+  					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  					<strong>${error}</strong>
+		</div>
 	</div>
  
 	<div class="imageDiv" align="center">

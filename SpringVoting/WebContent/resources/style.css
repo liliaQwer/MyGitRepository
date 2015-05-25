@@ -40,3 +40,6 @@ thead {
 .errors{
 	color: #a94442;
 }
+.hidden{
+	display: none;
+}
