@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,18 +29,11 @@ $(function() {
 		disable:true		
 	});
 	
-	var error="${error}";
-	if (error!=null && error!=""){
-		alert("error="+"${error}");
-		$("#actionError").removeClass("hidden");
-	}
 	
 	if ("${tab}"=="registration"){
-		alert("tab= registration "+"${tab}");
 		$("#tabRegister").addClass("active");
 		$("#liRegister").addClass("active");
 	}else{
-		alert("tab= login "+"${tab}");
 		$("#tabLogin").addClass("active");
 		$("#liLogin").addClass("active");
 	}
@@ -125,10 +119,12 @@ function clearErrors(){
 				</form:form>				
 			</div>
 		</div>	
-		<div id="actionError" class="alert alert-danger alert-dismissible hidden" role="alert">
+		<c:if test="${not empty error}">
+			<div id="actionError" class="alert alert-danger alert-dismissible" role="alert">
   					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   					<strong>${error}</strong>
 		</div>
+		</c:if>		
 	</div>
  
 	<div class="imageDiv" align="center">

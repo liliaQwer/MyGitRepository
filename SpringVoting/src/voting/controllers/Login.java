@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import voting.dao.UserDAO;
 import voting.model.SignInUser;
@@ -28,10 +29,12 @@ public class Login {
 	private UserDAO userDAO;
 	
 	@RequestMapping(value="/sign", method  = GET)
-	public String sign(Map<String,Object> map){		
-		map.put("signInUser", new SignInUser());
-		map.put("signUpUser", new SignUpUser());
-		return "login";
+	public ModelAndView sign(){	
+		ModelAndView model = new ModelAndView();
+		model.addObject("signInUser", new SignInUser());
+		model.addObject("signUpUser", new SignUpUser());
+		model.setViewName("login");
+		return model;
 	}
 	
 	@RequestMapping(value="/test", method  = GET, produces = MediaType.APPLICATION_JSON_VALUE)
