@@ -30,7 +30,7 @@ $(function() {
 	});
 	
 	
-	if ("${tab}"=="registration"){
+	if ("${tab}" == "registration"){
 		$("#tabRegister").addClass("active");
 		$("#liRegister").addClass("active");
 	}else{
@@ -52,11 +52,12 @@ function clearErrors(){
 		</ul>
 		<div  class="tab-content paddingTop20">
 			<div  role="tabpanel" class="tab-pane" id="tabLogin">
-				<form:form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="signIn" role="form" method="post" commandName="signInUser">
+				
+				<form:form class="form-horizontal width600" id="loginForm" data-toggle="validator" action="j_spring_security_check" method='POST' role="form" commandName="signInUser">
   					<div class="form-group">
     					<label for="signInEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input type="email" path="email"  class="form-control" id="signInEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
+     						<form:input  type="email" path="email"  class="form-control" id="signInEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
    							<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
@@ -64,7 +65,7 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signInPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<form:input type="password" path="password" class="form-control" id="signInPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
+      						<form:password path="password" class="form-control" id="signInPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:password>
       						<form:errors path="password" class="errors"/>  
       						<div class="help-block with-errors"></div>   						
     					</div>    					
@@ -81,7 +82,8 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
+    						<!--<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail"  data-remote-error="such login already exists"   onclick="clearErrors();"></form:input> -->   						
+     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
      						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
@@ -89,7 +91,7 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<form:input type="password" path="password" class="form-control" id="signUpPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:input>
+      						<form:password path="password" class="form-control" id="signUpPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:password>
       						<form:errors path="password" class="errors"/>
       						<div class="help-block with-errors"></div>
     					</div>
@@ -97,7 +99,7 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpPasswordConfirm" class="col-sm-2 control-label">Confirm password</label>
     					<div class="col-sm-10">
-      						<form:input type="password" path="passwordConfirm" class="form-control" id="signUpPasswordConfirm" data-match="#signUpPassword" data-match-error="Whoops, these don't match" placeholder="PasswordConfirm" required="true" onclick="clearErrors();"></form:input>
+      						<form:password path="passwordConfirm" class="form-control" id="signUpPasswordConfirm" data-match="#signUpPassword" data-match-error="Whoops, these don't match" placeholder="PasswordConfirm" required="true" onclick="clearErrors();"></form:password>
       						<form:errors path="passwordConfirm" class="errors"/>
       						<form:errors path="samePasswords" class="errors"/>
       						<div class="help-block with-errors"></div>

@@ -14,7 +14,7 @@ public class SignInUser {
 	
 	@Size(min=3, max=10)
 	@NotEmpty
-	private String password;
+	private String password="";	
 	
 	public String getEmail() {
 		return email;
@@ -28,5 +28,6 @@ public class SignInUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 }
+
