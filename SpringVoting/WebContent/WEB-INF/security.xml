@@ -7,15 +7,17 @@
                  http://www.springframework.org/schema/security/spring-security-3.2.xsd"> 
 
   
-<http auto-config='true'>
-	<intercept-url pattern="/sign*" access="ROLE_ANONYMOUS" />	
-	<intercept-url pattern="/*" access="ROLE_user" />	
+<http auto-config='true' use-expressions="true">
+	<intercept-url pattern="/sign*" access="permitAll" />	
+	<intercept-url pattern="/checkUniqueEmail" access="permitAll" />
+	<intercept-url pattern="/*" access="hasRole('ROLE_USER')" />	
 	<form-login login-page="/sign"  authentication-failure-handler-ref="userNameCachingAuthenticationFailureHandler" username-parameter="email" password-parameter="password" />	
 	<access-denied-handler error-page="/403" />
   </http>
 <authentication-manager alias="authManager">
 	   <authentication-provider>
-	   		<jdbc-user-service  data-source-ref="dataSource" users-by-username-query="select login, password, true from mydb.users where  login = ?"
+	   		<password-encoder ref="encoder"/>
+	   		<jdbc-user-service  data-source-ref="dataSource" role-prefix="ROLE_"  users-by-username-query="select login, password, true from mydb.users where  login = ?"
 	   			authorities-by-username-query="select login, role from mydb.user_roles where login = ?"/>	       
 	   </authentication-provider>
 </authentication-manager>
@@ -23,6 +25,8 @@
 <beans:bean id="userNameCachingAuthenticationFailureHandler"   class="voting.filters.UserNameCachingAuthenticationFailureHandler">
     <beans:property name="defaultFailureUrl" value="/sign?error"/>
 </beans:bean>
+	
+<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 </beans:beans> 
 

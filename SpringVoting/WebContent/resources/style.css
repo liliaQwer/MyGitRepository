@@ -37,6 +37,12 @@ thead {
 .paddingTop20{
 	padding-top: 20px;
 }
+.padding20{
+	padding: 20px;
+}
+.margin10{
+	margin: 10px;
+}
 .errors{
 	color: #a94442;
 }

@@ -19,6 +19,15 @@
 <script type="text/javascript">
 
 $(function() {
+
+	if ("${tab}" == "registration"){
+		$("#tabRegister").addClass("active");
+		$("#liRegister").addClass("active");
+	}else{
+		$("#tabLogin").addClass("active");
+		$("#liLogin").addClass("active");
+	}
+	
 	$("#loginForm").validator({
 		delay:100,
 		disable:true		
@@ -30,13 +39,6 @@ $(function() {
 	});
 	
 	
-	if ("${tab}" == "registration"){
-		$("#tabRegister").addClass("active");
-		$("#liRegister").addClass("active");
-	}else{
-		$("#tabLogin").addClass("active");
-		$("#liLogin").addClass("active");
-	}
 });
 
 function clearErrors(){
@@ -57,17 +59,20 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signInEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-     						<form:input  type="email" path="email"  class="form-control" id="signInEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>
-   							<form:errors path="email" class="errors"/>
+     						<form:input  type="email" path="email"  class="form-control" id="signInEmail" placeholder="Email" required="true" onclick="clearErrors();"></form:input>   							
    							<div class="help-block with-errors"></div>
    						</div>
  					</div>
   					<div class="form-group">
     					<label for="signInPassword" class="col-sm-2 control-label">Password</label>
     					<div class="col-sm-10">
-      						<form:password path="password" class="form-control" id="signInPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:password>
-      						<form:errors path="password" class="errors"/>  
-      						<div class="help-block with-errors"></div>   						
+      						<form:password path="password" class="form-control" id="signInPassword" placeholder="Password" required="true" onclick="clearErrors();"></form:password>      						 
+      						<div class="help-block with-errors"></div>   		
+      						<c:if test="${not empty errorLogin}">
+								<div class="errors paddingTop20" >  					
+  									<strong>${errorLogin}</strong>
+								</div>
+							</c:if>					
     					</div>    					
   					</div>
   					<div class="form-group">
@@ -82,8 +87,7 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-    						<!--<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail"  data-remote-error="such login already exists"   onclick="clearErrors();"></form:input> -->   						
-     						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
+    						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
      						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>
@@ -99,9 +103,9 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpPasswordConfirm" class="col-sm-2 control-label">Confirm password</label>
     					<div class="col-sm-10">
-      						<form:password path="passwordConfirm" class="form-control" id="signUpPasswordConfirm" data-match="#signUpPassword" data-match-error="Whoops, these don't match" placeholder="PasswordConfirm" required="true" onclick="clearErrors();"></form:password>
+    						<form:password path="passwordConfirm" class="form-control" id="signUpPasswordConfirm" data-match="#signUpPassword" data-match-error="Whoops, these don't match" placeholder="PasswordConfirm" required="true" onclick="clearErrors();"></form:password>
       						<form:errors path="passwordConfirm" class="errors"/>
-      						<form:errors path="samePasswords" class="errors"/>
+      						<form:errors class="errors"/>      						
       						<div class="help-block with-errors"></div>
     					</div>
   					</div>  					
@@ -125,7 +129,7 @@ function clearErrors(){
 			<div id="actionError" class="alert alert-danger alert-dismissible" role="alert">
   					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   					<strong>${error}</strong>
-		</div>
+			</div>
 		</c:if>		
 	</div>
  

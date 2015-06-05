@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import voting.util.User;
 
 public class VotingDetails {
 	
@@ -19,7 +18,6 @@ public class VotingDetails {
 	int votesCount=5;
 	String question="Надо ли путешествовать?";
 	ArrayList<String> commentsList;
-	ArrayList<User> votersList;
 	VotingResult votingResult=new VotingResult();
 	SimpleDateFormat df=new SimpleDateFormat("dd.MM.yyyy");
 		
@@ -40,12 +38,6 @@ public class VotingDetails {
 	}
 	public void setCommentsList(ArrayList<String> commentsList) {
 		this.commentsList = commentsList;
-	}
-	public ArrayList<User> getVotersList() {
-		return votersList;
-	}
-	public void setVotersList(ArrayList<User> votersList) {
-		this.votersList = votersList;
 	}
 	public VotingResult getVotingResult() {
 		return votingResult;

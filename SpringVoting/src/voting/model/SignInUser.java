@@ -2,18 +2,15 @@ package voting.model;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import voting.annotations.Email;
 
 public class SignInUser {
 	
 	@Size(min=3, max=15)
 	@Email
-	@NotEmpty
 	private String email;
 	
 	@Size(min=3, max=10)
-	@NotEmpty
 	private String password="";	
 	
 	public String getEmail() {

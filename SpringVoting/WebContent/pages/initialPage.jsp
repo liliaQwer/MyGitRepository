@@ -22,7 +22,7 @@ $(document).ready(function(){
 		current_page: 1,
 		page_string: 'Page {current_page} of {max_page}', 
    	 paged: function(page) {
-  	 	    // do something with the page variable
+  	 	    view.getData(page);
    	 }
 	});
 	
@@ -37,17 +37,20 @@ $(document).ready(function(){
 	var someData=[rec1,rec2];
 	
 	function tableViewModel(data){
-		var self = this;
-		
+		var self = this;	
 		self.viewData = ko.observableArray(data);
-		self.totalVoteCount = ko.computed(function(){
-			return self.viewData().length;
-		});
-		//self.viewData = ko.observableArray([{orderNum : 1, theme: "Запись 1", voteCount: 1, author: "Я"},{orderNum : 2, theme: "Запись 2", voteCount: 5, author: "ЯЯ"}]);
-		//self.orderNum = ko.observable();
-		//self.theme = ko.observable();
-		//self.voteCount = ko.observable();
-		//self.author = ko.observable();
+		self.totalVoteCount = ko.observable();
+		self.getData = function (page){
+			$.getJSON("getActiveVoiting",{page: page}, function(){
+				
+			});
+		};
+		self.getTotalCount = function(){
+			
+		};
+		
+		self.getTotalCount();
+		self.getData(1);		
 	}
 	
 	var view = new tableViewModel(someData);	
@@ -58,12 +61,17 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div><a href="sign">Вход/регистрация</a></div>
+<c:choose>
+	<c:when test="${pageContext.request.userPrincipal.name != null}">
+		<div class="margin10"><a href="<c:url value="/j_spring_security_logout" />" > Logout</a> </div>
+	</c:when>
+	<c:otherwise>
+		<div class="margin10"><a href="sign">Вход/регистрация</a></div>
+	</c:otherwise>	   
+</c:choose>
+
 <p align="center">Всего активных голосований: <span data-bind = "text: totalVoteCount"></span></p>
-<c:if test="${pageContext.request.userPrincipal.name != null}">
-	   <h2>Welcome : ${pageContext.request.userPrincipal.name} 	  
-           | <a href="<c:url value="/j_spring_security_logout" />" > Logout</a></h2>  
-	</c:if>
+
 <div class="tableDiv width850">
 <table class="table table-bordered table-hover" align="center">
 	<thead>
