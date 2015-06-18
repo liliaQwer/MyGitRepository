@@ -2,27 +2,32 @@ package voting.model;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import voting.util.Roles;
 
 
 public class VotingDetails {
 	
-	int id=1;
+	int id;
 	Date createDate;
 	Date endDate;
-	String createDateStr="01.01.2010";
-	String endDateStr="01.02.2010";
+	String createDateStr;
+	String endDateStr;
 	boolean enabled;
 	int remainDaysCount;
-	int votesCount=5;
-	String question="Надо ли путешествовать?";
-	ArrayList<String> commentsList;
-	VotingResult votingResult=new VotingResult();
+	int votesCount;
+	String question;
+	List<VotingResult> votingResult;
 	SimpleDateFormat df=new SimpleDateFormat("dd.MM.yyyy");
 		
 	public int getVotesCount() {
-		return votesCount;
+		int count = 0;
+		for(VotingResult result: votingResult){
+			count += result.getVotesCount();
+		}
+		return count;
 	}
 	public void setVotesCount(int votesCount) {
 		this.votesCount = votesCount;
@@ -33,18 +38,7 @@ public class VotingDetails {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	public ArrayList<String> getCommentsList() {
-		return commentsList;
-	}
-	public void setCommentsList(ArrayList<String> commentsList) {
-		this.commentsList = commentsList;
-	}
-	public VotingResult getVotingResult() {
-		return votingResult;
-	}
-	public void setVotingResult(VotingResult votingResult) {
-		this.votingResult = votingResult;
-	}
+	
 	public int getId() {
 		return id;
 	}
@@ -70,9 +64,7 @@ public class VotingDetails {
 		remainDaysCount= (int)(endDate.getTime()-curDate.getTime())/ (1000 * 60 * 60 * 24);
 		return remainDaysCount;
 	}
-	public void setRemainDaysCount(int remainDaysCount) {
-		this.remainDaysCount = remainDaysCount;
-	}
+	
 	public String getCreateDateStr() {
 		if (createDate != null){
 			createDateStr=df.format(createDate);
@@ -97,6 +89,64 @@ public class VotingDetails {
 	}
 	public Date getEndDate() {
 		return endDate;
+	}
+	public List<VotingResult> getVotingResult() {
+		return votingResult;
+	}
+	public void setVotingResult(List<VotingResult> votingResult) {
+		
+		this.votingResult = votingResult;
+	}
+	public void setCreateDateStr(String createDateStr) {
+		this.createDateStr = createDateStr;
+	}
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
+	
+	public static class VotingResult{
+		int id;
+		String answer;
+		int votesCount;
+		List<String> votersList;
+		public String getAnswer() {
+			return answer;
+		}
+		public void setAnswer(String answer) {
+			this.answer = answer;
+		}
+		public int getVotesCount() {			
+			return votersList.size();
+		}
+		public void setVotesCount(int votesCount) {
+			this.votesCount = votesCount;
+		}
+		public List<String> getVotersList() {
+			return votersList;
+		}
+		public void setVotersList(List<String> votersList) {
+			this.votersList = votersList;
+		}
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+	}
+
+	public boolean isUserVoted(String userName) {
+		if (userName == null || userName.equals(Roles.ANONYMOUS)){
+			return false;
+		}
+		for (VotingResult result: votingResult){
+			for (String login: result.votersList){
+				if (userName.equals(login)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 }

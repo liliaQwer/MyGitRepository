@@ -24,52 +24,38 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div><a href="sign">Вход/регистрация</a></div>
-<h4  align="center">Voting was created: <small>${votingDetails.createDateStr}</small></h4>
+<div ><a href="sign">Вход/регистрация</a></div>
+<div class="marginAuto width600 questionDiv">
+<h4  align="left">Voting was created: <small>${votingDetails.createDateStr}</small></h4>
 <c:choose>
-    <c:when test="${votingDetails.createDate != null}">
+    <c:when test="${votingDetails.endDate != null}">
         <h3 align="center">Days for voting termination: <small>${votingDetails.remainDaysCount}</small></h3>
-    </c:when> 
-    <c:otherwise>       
-    </c:otherwise>   
+    </c:when>       
 </c:choose>
-<h3 align="center">Всего проголосовавших: <small>${votingDetails.votesCount}</small></h3>
-<div class="marginAuto width300">
-<ul class="list-group">
-  <li class="list-group-item list-group-item-success">
-   <span class="badge">${votingDetails.votingResult.yesCount}</span>
-     Yes
-  </li>
-  <li class="list-group-item list-group-item-danger">
-    <span class="badge">${votingDetails.votingResult.noCount}</span>
-    No
-  </li>
-  <li class="list-group-item list-group-item-warning">
-    <span class="badge">${votingDetails.votingResult.abstainCount}</span>
-    Abstain
-  </li>
-</ul>
+<div class="list-group">
+  <a href="#" class="list-group-item active">${votingDetails.question}</a>
+  <c:forEach items="${votingDetails.votingResult}" var="votingResult">
+  	<a href="#" class="list-group-item"><c:out value="${votingResult.answer}"/><span class="badge pull-right"><c:out value="${votingResult.votesCount}"/></span></a>
+  </c:forEach>  
 </div>
-<div class="marginAuto width600 questionDiv">	
-	<h2>Question: <small>${votingDetails.question}</small></h2>		
-	<p  class="bg-success"><input type="radio" value="radiobutton" name="radiobutton" > <span>I agree</span></p>
-	<p	class="bg-danger"><input type="radio" value="radiobutton" name="radiobutton" ><span>I don't agree</span>
-	<p 	class="bg-warning"><input type="radio" value="radiobutton" name="radiobutton" ><span>Abstain</span></p>
-	<c:choose>
-    <c:when test="${!votingDetails.votersList.contains('li')}">
-        <button type="button" disabled="disabled" class="btn btn-warning">You have already voted</button>
+<c:choose>
+	<c:when test="${!votingDetails.enabled}">
+       <h3 align="center"><span class="label label-default">This voting is finished</span></h3>
     </c:when>
     <c:otherwise>
-        <button class="btn btn-default" type="submit">Vote</button>
-    </c:otherwise>
+    	<c:choose>
+			<c:when test="${!votingDetails.isUserVoted(pageContext.request.userPrincipal.name)}">
+				<div class="margin10" align="center"><button type="button" class="btn btn-primary">Vote</button></div>
+			</c:when>
+			<c:otherwise>
+				<h3 align="center"><span class="label label-default">You have already voted</span></h3>
+			</c:otherwise>
+		</c:choose>
+	</c:otherwise>
 </c:choose>
-	
 </div>
 <div class="imageDiv" align="center">
 	<img src="resources/images/4.jpg"></img>
 </div>
-
-
 </body>
-
 </html>

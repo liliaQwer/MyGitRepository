@@ -9,7 +9,7 @@
   
 <http auto-config='true' use-expressions="true">
 	<intercept-url pattern="/sign*" access="permitAll" />	
-	<intercept-url pattern="/checkUniqueEmail" access="permitAll" />
+	<intercept-url pattern="/checkUniqueEmail,/votingDetails" access="permitAll" />
 	<intercept-url pattern="/*" access="hasRole('ROLE_USER')" />	
 	<form-login login-page="/sign"  authentication-failure-handler-ref="userNameCachingAuthenticationFailureHandler" username-parameter="email" password-parameter="password" />	
 	<access-denied-handler error-page="/403" />

@@ -9,13 +9,11 @@
 <link href="${pageContext.request.contextPath}/resources/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> 
 <link href="${pageContext.request.contextPath}/resources/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/jqpagination.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-ui-1.10.4.custom.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap.min.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/validator.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery.jqpagination.js"></script>
 <script type="text/javascript">
 
 $(function() {
@@ -38,12 +36,12 @@ $(function() {
 		disable:true		
 	});
 	
-	
 });
 
 function clearErrors(){
 	$(".errors").hide();
 }
+
 </script>
 </head>
 <body>
@@ -87,7 +85,7 @@ function clearErrors(){
   					<div class="form-group">
     					<label for="signUpEmail" class="col-sm-2 control-label">Email</label>
     					<div class="col-sm-10">
-    						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="checkUniqueEmail" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
+    						<form:input type="email" path="email" class="form-control" id="signUpEmail" placeholder="Email" required="true" data-remote="ajax/checkUniqueEmail" data-remote-error="such login already exists"   onclick="clearErrors();"></form:input>
      						<form:errors path="email" class="errors"/>
    							<div class="help-block with-errors"></div>
    						</div>

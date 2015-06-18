@@ -17,43 +17,44 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/knockout.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('.pagination').jqPagination({
-		max_page: 5,
-		current_page: 1,
-		page_string: 'Page {current_page} of {max_page}', 
-   	 paged: function(page) {
-  	 	    view.getData(page);
-   	 }
-	});
 	
-	function record(or,th,vt,au){
-		this.orderNum= or;
-		this.theme= th;
-		this.voteCount= vt;
-		this.author= au;
-	}
-	var rec1 = new record(1,"Запись 1", 2, "Li");
-	var rec2 = new record(2,"Запись 2", 3, "Li");
-	var someData=[rec1,rec2];
 	
-	function tableViewModel(data){
-		var self = this;	
-		self.viewData = ko.observableArray(data);
+	
+	function tableViewModel(){
+		var self = this;
+		self.viewData = ko.observableArray();
 		self.totalVoteCount = ko.observable();
 		self.getData = function (page){
-			$.getJSON("getActiveVoiting",{page: page}, function(){
-				
+			$.getJSON("ajax/getActiveVoting",{page: page}, function(data){
+				if (data !=null && data != ""){
+					//debugger;
+					self.viewData(data.votingList);
+					$('.pagination').jqPagination({
+						max_page: data.maxPage || 0,
+						current_page: data.currentPage || 0,
+						page_string: 'Page {current_page} of {max_page}', 
+				   	 paged: function(page) {
+				  	 	    self.getData(page);
+				   	 }
+					});
+				}				
+			}).fail(function(){
+				$("#errorDiv").removeClass("hidden");
 			});
 		};
 		self.getTotalCount = function(){
-			
+			$.getJSON("ajax/getTotalVoting", function(data){				
+				self.totalVoteCount(data);				
+			}).fail(function(){
+				$("#errorDiv").removeClass("hidden");
+			});
 		};
-		
+				
 		self.getTotalCount();
-		self.getData(1);		
+		self.getData(1);
 	}
 	
-	var view = new tableViewModel(someData);	
+	var view = new tableViewModel();
 	ko.applyBindings(view);
 	
 	 
@@ -66,28 +67,30 @@ $(document).ready(function(){
 		<div class="margin10"><a href="<c:url value="/j_spring_security_logout" />" > Logout</a> </div>
 	</c:when>
 	<c:otherwise>
-		<div class="margin10"><a href="sign">Вход/регистрация</a></div>
+		<div class="margin10"><a href="sign">Sign in/Sign up</a></div>
 	</c:otherwise>	   
 </c:choose>
 
-<p align="center">Всего активных голосований: <span data-bind = "text: totalVoteCount"></span></p>
+<a href="<c:url value="/ajax/test?email='li'&password='111'" />" > Test</a>
+
+<p align="center">Total vote count: <span data-bind = "text: totalVoteCount()"></span></p>
 
 <div class="tableDiv width850">
 <table class="table table-bordered table-hover" align="center">
 	<thead>
 		<tr>
-			<td>№</td>
-			<td>Тема</td>
-			<td>Число проголосовавших</td>
-			<td>Автор</td>
+			<td class="text-center">Vote</td>
+			<td class="text-center">Theme</td>
+			<td class="text-center">Vote count</td>
+			<td class="text-center">Author</td>
 		</tr>
 	</thead>
  	<tbody data-bind = "foreach: viewData">
  		<tr>
-			<td><a data-bind="attr: {href: 'votingDetails?id=' + orderNum}"><span data-bind = "text: orderNum"></span></a></td>
-			<td data-bind = "text: theme">Тема дня</td>
-			<td data-bind = "text: voteCount">10</td>
-			<td data-bind = "text: author">Автор я</td>
+			<td  class="text-center"><a data-bind="attr: {href: 'votingDetails?id=' + id}"> <img src="resources/images/voteLink.png"/></a> </td>
+			<td data-bind = "text: question"></td>
+			<td data-bind = "text: voteCount"></td>
+			<td data-bind = "text: owner"></td>
 		</tr>		
  	</tbody>
 </table>
@@ -100,11 +103,16 @@ $(document).ready(function(){
     <a href="#" class="next" data-action="next">&rsaquo;</a>
     <a href="#" class="last" data-action="last">&raquo;</a>
 </div>
+
+<div id="errorDiv" class="alert alert-danger alert-dismissible hidden width850"   role="alert">
+  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  	<strong id="errorSpan">Something went wrong</strong>
+</div>
+
 </div>
 <div class="imageDiv" align="center">
 	<img src="resources/images/4.jpg"></img>
 </div>
-
 
 </body>
 

@@ -2,7 +2,6 @@ package voting.controllers;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -18,9 +17,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import voting.dao.UserDAO;
@@ -66,22 +65,7 @@ public class MainController {
 		return model;
 	}
 	
-	/*@RequestMapping(value="/test", method  = GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public User  test(){
-		System.out.println("test");
-		return new User();
-	}*/
-		
-	@RequestMapping(value="/checkUniqueEmail")
-	public @ResponseBody void checkUniqueEmail(@RequestParam("email") String email, HttpServletResponse response){
-		if (userDAO.isLoginRegistered(email)){
-			response.setStatus(400);			
-		}else{
-			response.setStatus(200);
-		}
-		
-	}	
+	
 
 	@RequestMapping(value="/signUp", method = POST)
 	public String signUp(@Valid SignUpUser user, BindingResult result, Model model,HttpServletRequest request){
@@ -101,8 +85,8 @@ public class MainController {
 		}
 		authenticateUserAndSetSession(user, request);		
 		return "initialPage";
-	}		
-	
+	}	
+		
 	 private void authenticateUserAndSetSession(SignUpUser user, HttpServletRequest request) {
 		 String username = user.getEmail();
 	     String password = user.getPassword();
