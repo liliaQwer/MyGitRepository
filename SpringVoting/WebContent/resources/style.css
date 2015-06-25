@@ -1,0 +1,51 @@
+body{
+	
+}
+.width850{
+	width: 850px;
+}
+.width300{
+	width: 300px;
+}
+.width600{
+	width: 600px;
+}
+.marginAuto{
+	margin: 0 auto;
+}
+.tableDiv{
+	margin: 0 auto;
+	/*border: groove 1px;*/
+}
+.imageDiv{
+	margin: 0 auto;
+}
+thead {
+	background-color: #E9EFF9;
+	font-size: 18px;
+	
+}
+#loginDiv{
+	padding-top: 20px;
+}
+.questionDiv p{
+	padding: 10px;	
+}
+.marginAuto{
+	margin: 0 auto;
+}
+.paddingTop20{
+	padding-top: 20px;
+}
+.padding20{
+	padding: 20px;
+}
+.margin10{
+	margin: 10px;
+}
+.errors{
+	color: #a94442;
+}
+.hidden{
+	display: none;
+}
