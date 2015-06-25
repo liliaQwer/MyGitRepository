@@ -9,13 +9,13 @@ import voting.model.SignUpUser;
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
 	@Override
-	public void initialize(PasswordMatches arg0) {
+	public void initialize(PasswordMatches annotation) {
 		
 	}
 
 	@Override
-	public boolean isValid(Object arg0, ConstraintValidatorContext arg1) {
-		SignUpUser user = (SignUpUser)arg0; 
+	public boolean isValid(Object arg, ConstraintValidatorContext context) {
+		SignUpUser user = (SignUpUser)arg; 
 		return user.getPassword().equals(user.getPasswordConfirm());
 	}
 

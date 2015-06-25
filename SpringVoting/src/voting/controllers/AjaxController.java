@@ -1,6 +1,5 @@
 package voting.controllers;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,13 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import voting.dao.QuestionDAO;
 import voting.dao.UserDAO;
 import voting.model.ActiveVotings;
-import voting.model.SignInUser;
 
 @Controller
 @RequestMapping("/ajax")
@@ -44,9 +41,11 @@ public class AjaxController {
 		model.setVotingList(questionDAO.getActiveVoting());
 		int itemsCount = model.getVotingList().size();
 		int pageSize = 15;
-		int pageCount = ((float)itemsCount/pageSize - itemsCount/pageSize)>0 ? itemsCount/pageSize + 1 : itemsCount/pageSize;
-		model.setMaxPage(pageCount);
-		model.setCurrentPage(page);
+		int pageCount = ((float)itemsCount/pageSize - itemsCount/pageSize)>0 
+				? itemsCount/pageSize + 1 
+				: itemsCount/pageSize;
+		model.setMaxPage(pageCount);		
+		model.setCurrentPage(page>pageCount ? pageCount : page);
 		return model;
 	}
 	

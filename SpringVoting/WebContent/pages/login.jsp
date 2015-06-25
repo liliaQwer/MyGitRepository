@@ -132,7 +132,7 @@ function clearErrors(){
 	</div>
  
 	<div class="imageDiv" align="center">
-	<img src="resources/images/4.jpg"></img>
-</div>
+		<img src="resources/images/4.jpg"></img>
+	</div>
 </body>
 </html>

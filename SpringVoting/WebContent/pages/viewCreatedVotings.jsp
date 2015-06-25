@@ -20,7 +20,7 @@ $(document).ready(function(){
 		max_page: 5,
 		current_page: 1,
 		page_string: 'Page {current_page} of {max_page}', 
-   	 paged: function(page) {
+   	 	paged: function(page) {
   	 	    // do something with the page variable
    	 }
 	});

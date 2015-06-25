@@ -26,6 +26,7 @@ import voting.dao.UserDAO;
 import voting.daoManagers.UserManager;
 import voting.model.SignInUser;
 import voting.model.SignUpUser;
+import voting.util.Constants;
 import voting.util.Roles;
 
 @Controller
@@ -44,7 +45,7 @@ public class MainController {
 		SignInUser signInUser = new SignInUser();		
 		if (error != null) {
 			signInUser.setEmail(session.getAttribute("LAST_USERNAME").toString());
-			session.removeAttribute("LAST_USERNAME");
+			session.removeAttribute(Constants.LAST_USERNAME);
 			model.addObject("errorLogin", "Username or password is not correct");
 		}
 		model.addObject("signInUser", signInUser);

@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import voting.util.Constants;
+
 public class UserNameCachingAuthenticationFailureHandler  extends SimpleUrlAuthenticationFailureHandler{
 	
 	@Autowired
@@ -25,7 +27,7 @@ public class UserNameCachingAuthenticationFailureHandler  extends SimpleUrlAuthe
 	    HttpSession session = request.getSession(false);
 	    if (session != null || isAllowSessionCreation()) {
 	    	System.out.println("onAuthenticationFailure");
-	    	request.getSession().setAttribute("LAST_USERNAME", userName);
+	    	request.getSession().setAttribute(Constants.LAST_USERNAME, userName);
 	    }
     }
 }

@@ -46,10 +46,13 @@ public class QuestionDAO {
 		return jdbcTemplate.queryForInt("SELECT count(*)  FROM mydb.answers where question_id = ?", questionId);
 	}
 	
-	public void fillDetails(VotingDetails details){
-		Map<String, Object> dataMap = jdbcTemplate.queryForMap("select * from mydb.questions where id = ?", details.getId());
+	public VotingDetails getDetailsById(int id){
+		VotingDetails details = new VotingDetails();
+		details.setId(id);
+		Map<String, Object> dataMap = jdbcTemplate.queryForMap("select * from mydb.questions where id = ?", id);
 		details.setCreateDate((Date)dataMap.get("create_date"));
 		details.setEndDate((Date)dataMap.get("end_date"));
-		details.setQuestion((String)dataMap.get("question"));		
+		details.setQuestion((String)dataMap.get("question"));	
+		return details;
 	}
 }

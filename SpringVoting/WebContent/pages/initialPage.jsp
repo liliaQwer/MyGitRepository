@@ -18,46 +18,53 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	
-	
 	function tableViewModel(){
 		var self = this;
+		self.hasError = ko.observable(false);
+		self.paginationVisible = ko.observable(false);
 		self.viewData = ko.observableArray();
 		self.totalVoteCount = ko.observable();
 		self.getData = function (page){
 			$.getJSON("ajax/getActiveVoting",{page: page}, function(data){
-				if (data !=null && data != ""){
-					//debugger;
+				if (data){
 					self.viewData(data.votingList);
-					$('.pagination').jqPagination({
-						max_page: data.maxPage || 0,
-						current_page: data.currentPage || 0,
-						page_string: 'Page {current_page} of {max_page}', 
-				   	 paged: function(page) {
-				  	 	    self.getData(page);
-				   	 }
-					});
-				}				
+					if(data.maxPage > 0){
+						self.paginationVisible(true);
+						initPagination(data.maxPage, data.currentPage);
+					}else{
+						self.paginationVisible(false);
+					}					
+				}		
 			}).fail(function(){
-				$("#errorDiv").removeClass("hidden");
+				self.hasError(true);				
 			});
 		};
 		self.getTotalCount = function(){
 			$.getJSON("ajax/getTotalVoting", function(data){				
 				self.totalVoteCount(data);				
 			}).fail(function(){
-				$("#errorDiv").removeClass("hidden");
+				self.hasError(true);				
 			});
-		};
-				
+		};				
 		self.getTotalCount();
+		
 		self.getData(1);
 	}
 	
 	var view = new tableViewModel();
 	ko.applyBindings(view);
 	
-	 
+	function initPagination(maxPage, currentPage){
+		debugger;
+		$('.pagination').jqPagination({
+			max_page: maxPage || 0,
+			current_page: currentPage || 0,
+			page_string: 'Page {current_page} of {max_page}', 
+	   	 	paged: function(page) {
+	   	 		view.getData(page);
+	   	 }
+		});
+	}
 });
 </script>
 </head>
@@ -73,7 +80,7 @@ $(document).ready(function(){
 
 <a href="<c:url value="/ajax/test?email='li'&password='111'" />" > Test</a>
 
-<p align="center">Total vote count: <span data-bind = "text: totalVoteCount()"></span></p>
+<p align="center">Total vote count: <span data-bind = "text: totalVoteCount"></span></p>
 
 <div class="tableDiv width850">
 <table class="table table-bordered table-hover" align="center">
@@ -87,7 +94,7 @@ $(document).ready(function(){
 	</thead>
  	<tbody data-bind = "foreach: viewData">
  		<tr>
-			<td  class="text-center"><a data-bind="attr: {href: 'votingDetails?id=' + id}"> <img src="resources/images/voteLink.png"/></a> </td>
+			<td  class="text-center"><a data-bind="attr: {href: 'votingDetails/?' + id}"> <img src="resources/images/voteLink.png"/></a> </td>
 			<td data-bind = "text: question"></td>
 			<td data-bind = "text: voteCount"></td>
 			<td data-bind = "text: owner"></td>
@@ -96,24 +103,21 @@ $(document).ready(function(){
 </table>
 </div>
 <div align="center">
-<div class="pagination" >
-    <a href="#" class="first" data-action="first">&laquo;</a>
-    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
-    <input type="text" readonly="readonly" data-max-page="40" />
-    <a href="#" class="next" data-action="next">&rsaquo;</a>
-    <a href="#" class="last" data-action="last">&raquo;</a>
-</div>
-
-<div id="errorDiv" class="alert alert-danger alert-dismissible hidden width850"   role="alert">
-  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  	<strong id="errorSpan">Something went wrong</strong>
-</div>
-
+	<div class="pagination" data-bind="css : {hidden: !paginationVisible()}" >
+   	 	<a href="#" class="first" data-action="first">&laquo;</a>
+    	<a href="#" class="previous" data-action="previous">&lsaquo;</a>
+    	<input type="text" readonly="readonly" data-max-page="40" />
+    	<a href="#" class="next" data-action="next">&rsaquo;</a>
+    	<a href="#" class="last" data-action="last">&raquo;</a>
+	</div>
+	<div id="errorDiv" data-bind = "css: {hidden: !hasError()}" class="alert alert-danger alert-dismissible  width850"   role="alert">
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		<strong id="errorSpan">Something went wrong</strong>
+	</div>
 </div>
 <div class="imageDiv" align="center">
 	<img src="resources/images/4.jpg"></img>
 </div>
 
 </body>
-
 </html>

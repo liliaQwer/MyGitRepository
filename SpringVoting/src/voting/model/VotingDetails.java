@@ -21,7 +21,16 @@ public class VotingDetails {
 	String question;
 	List<VotingResult> votingResult;
 	SimpleDateFormat df=new SimpleDateFormat("dd.MM.yyyy");
+	
+	public VotingDetails(){
 		
+	}
+	
+	public VotingDetails(int id, Date createDate){
+		this.id = id;
+		this.createDate = createDate;
+	}
+	
 	public int getVotesCount() {
 		int count = 0;
 		for(VotingResult result: votingResult){
